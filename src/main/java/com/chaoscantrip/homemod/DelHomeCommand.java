@@ -23,6 +23,7 @@ public class DelHomeCommand {
             HomeSavedData homeData = HomeSavedData.get(level);
 
             homeData.setHome(player.getUUID(), null); // Clear the player's home
+            homeData.setDirty();
 
             player.sendSystemMessage(Component.literal("Cleared Home location."));
         }

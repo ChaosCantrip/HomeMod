@@ -10,6 +10,8 @@ import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
@@ -23,17 +25,19 @@ public class SetHomeCommand {
 
     private static int execute(CommandContext<CommandSourceStack> command) {
         if (command.getSource().getEntity() instanceof Player player) {
+            ServerLevel level = (ServerLevel) player.getServer().overworld();
+            HomeSavedData homeData = HomeSavedData.get(level);
 
-            String dimension = player.level().dimension().toString();
+            ResourceKey<Level> dimension = player.level().dimension();
             BlockPos pos = player.blockPosition();
 
             int x = pos.getX();
             int y = pos.getY();
             int z = pos.getZ();
 
-            Location home = new Location(pos, dimension);
+            Location home = new Location(pos, dimension.location().toString());
 
-            player.getPersistentData().put("home", Location.CODEC.encode(home, NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).result().get());
+            homeData.setHome(player.getUUID(), home);
 
             player.sendSystemMessage(Component.literal("Set Home command invocated"));
         }

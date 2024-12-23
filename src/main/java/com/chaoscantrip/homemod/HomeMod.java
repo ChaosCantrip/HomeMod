@@ -33,9 +33,7 @@ public class HomeMod {
 
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
-        System.out.println("LivingDeathEvent");
         if (event.getEntity() instanceof Player player) {
-            System.out.println("Player died");
             ServerLevel level = (ServerLevel) player.getServer().overworld();
             HomeSavedData homeData = HomeSavedData.get(level);
 

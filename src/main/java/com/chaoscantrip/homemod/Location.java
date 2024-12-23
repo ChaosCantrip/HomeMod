@@ -1,11 +1,8 @@
 package com.chaoscantrip.homemod;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 
 public class Location {
     public final BlockPos pos;

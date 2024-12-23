@@ -31,15 +31,11 @@ public class SetHomeCommand {
             ResourceKey<Level> dimension = player.level().dimension();
             BlockPos pos = player.blockPosition();
 
-            int x = pos.getX();
-            int y = pos.getY();
-            int z = pos.getZ();
-
             Location home = new Location(pos, dimension.location().toString());
 
             homeData.setHome(player.getUUID(), home);
 
-            player.sendSystemMessage(Component.literal("Set Home command invocated"));
+            player.sendSystemMessage(Component.literal("Set Home location."));
         }
         return Command.SINGLE_SUCCESS;
     }

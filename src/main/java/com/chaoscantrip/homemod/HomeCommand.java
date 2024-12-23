@@ -52,7 +52,9 @@ public class HomeCommand {
                     }
                 }
             } else {
-                player.sendSystemMessage(Component.literal("Home location not set."));
+                BlockPos spawnPos = level.getSharedSpawnPos();
+                player.teleportTo(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                player.sendSystemMessage(Component.literal("No home set. Teleported to world spawn."));
             }
         }
         return Command.SINGLE_SUCCESS;

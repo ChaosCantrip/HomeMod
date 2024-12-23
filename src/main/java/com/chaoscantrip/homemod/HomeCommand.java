@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.DataResult;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
@@ -28,6 +29,12 @@ public class HomeCommand {
             ServerLevel level = (ServerLevel) player.getServer().overworld();
             HomeSavedData homeData = HomeSavedData.get(level);
             Location home = homeData.getHome(player.getUUID());
+
+            ResourceKey<Level> dimension = player.level().dimension();
+            BlockPos pos = player.blockPosition();
+            Location currentLocation = new Location(pos, dimension.location().toString());
+
+            homeData.addBack(player.getUUID(), currentLocation);
 
             if (home != null) {
                 ResourceKey<Level> dimensionKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(home.dimension));

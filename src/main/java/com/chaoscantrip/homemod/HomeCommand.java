@@ -40,11 +40,13 @@ public class HomeCommand {
                 ResourceKey<Level> dimensionKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(home.dimension));
                 if (player.level().dimension().equals(dimensionKey)) {
                     player.teleportTo(home.pos.getX(), home.pos.getY(), home.pos.getZ());
+                    player.sendSystemMessage(Component.literal("Whoosh!"));
                 } else {
                     ServerLevel targetLevel = player.getServer().getLevel(dimensionKey);
                     if (targetLevel != null) {
                         player.changeDimension(targetLevel);
                         player.teleportTo(home.pos.getX(), home.pos.getY(), home.pos.getZ());
+                        player.sendSystemMessage(Component.literal("Whoosh!"));
                     } else {
                         player.sendSystemMessage(Component.literal("Invalid dimension: " + home.dimension));
                     }
@@ -52,8 +54,6 @@ public class HomeCommand {
             } else {
                 player.sendSystemMessage(Component.literal("Home location not set."));
             }
-
-            player.sendSystemMessage(Component.literal("Home command invoked"));
         }
         return Command.SINGLE_SUCCESS;
     }

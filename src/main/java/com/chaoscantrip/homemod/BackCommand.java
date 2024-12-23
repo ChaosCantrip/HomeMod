@@ -35,11 +35,13 @@ public class BackCommand {
                 ResourceKey<Level> dimensionKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(back.dimension));
                 if (player.level().dimension().equals(dimensionKey)) {
                     player.teleportTo(back.pos.getX(), back.pos.getY(), back.pos.getZ());
+                    player.sendSystemMessage(Component.literal("Whoosh!"));
                 } else {
                     ServerLevel targetLevel = player.getServer().getLevel(dimensionKey);
                     if (targetLevel != null) {
                         player.changeDimension(targetLevel);
                         player.teleportTo(back.pos.getX(), back.pos.getY(), back.pos.getZ());
+                        player.sendSystemMessage(Component.literal("Whoosh!"));
                     } else {
                         player.sendSystemMessage(Component.literal("Invalid dimension: " + back.dimension));
                     }
@@ -47,8 +49,6 @@ public class BackCommand {
             } else {
                 player.sendSystemMessage(Component.literal("No back locations available."));
             }
-
-            player.sendSystemMessage(Component.literal("Back command invoked"));
         }
         return Command.SINGLE_SUCCESS;
     }
